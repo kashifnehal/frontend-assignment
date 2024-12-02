@@ -52,7 +52,11 @@ const KickStarter = () => {
         KickStarter Ratings
       </h1>
       {formattedData.length ? (
-        <DynamicTable columns={columns} data={formattedData} />
+        <DynamicTable
+          columns={columns}
+          data={formattedData}
+          recordsPerPage={5}
+        />
       ) : (
         <p className="loading">Loading...</p>
       )}
