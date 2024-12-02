@@ -9,7 +9,6 @@ const initialState = {
 };
 
 const projectReducer = (state = initialState, action) => {
-  console.log("--reducer project---", action);
   switch (action.type) {
     case SET_PROJECTS:
       return { ...state, projects: action.payload };

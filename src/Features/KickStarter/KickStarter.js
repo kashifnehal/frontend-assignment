@@ -7,6 +7,7 @@ import {
 } from "../../State/actions/kickStarterActions";
 import { getLocalStorageItem } from "./utils";
 import { KICKSTARTER_CURRENT_PAGE } from "./constant";
+import "./KickStarter.css";
 
 const KickStarter = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const KickStarter = () => {
 
   const columns = ["S.No.", "Percentage funded", "Amount pledged"];
 
+  // TODO: can be added in a middleware
   const getProjectData = async () => {
     const projectData = await fetch(
       "https://raw.githubusercontent.com/saaslabsco/frontend-assignment/refs/heads/master/frontend-assignment.json"
@@ -39,16 +41,29 @@ const KickStarter = () => {
     if (pageInStorage && currentPage !== pageInStorage) {
       dispatch(setCurrentPage(pageInStorage));
     }
-  }, []);
+  }, [projectData.length]);
 
   return (
-    <div>
-      <h1>Dynamic React Table</h1>
-      {formattedData && formattedData.length > 0 ? (
+    <div className="kickstarter-container">
+      <h1
+        className="kickstarter-heading"
+        aria-label="KickStarter Ratings Overview"
+      >
+        KickStarter Ratings
+      </h1>
+      {formattedData.length ? (
         <DynamicTable columns={columns} data={formattedData} />
       ) : (
-        <p>Loading...</p>
+        <p className="loading">Loading...</p>
       )}
+      <div className="kickstarter-features">
+        <h4>Features..</h4>
+        <p>* Page Index retention on Refresh</p>
+        <p>* Data storage with redux</p>
+        <p>* Disable/Remove button at extremes</p>
+        <p>* Clean User Interface</p>
+        <p>* Provides Accessibility </p>
+      </div>
     </div>
   );
 };
